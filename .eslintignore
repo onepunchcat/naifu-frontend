@@ -1,0 +1,7 @@
+.*.js
+*.config.js
+build
+public
+coverage
+typechain
+node_modules
