@@ -1,3 +1,4 @@
+import { useAccount } from '@web3modal/react'
 import React from 'react'
 import { useNotifier } from 'react-headless-notifier'
 import { useFormContext } from 'react-hook-form'
@@ -22,6 +23,7 @@ export function Index() {
     formState: { errors },
     handleSubmit,
   } = useFormContext<GeneratorPrompt>()
+  const { isConnected } = useAccount()
   const { generate } = useGenerator()
   const { notify } = useNotifier()
 
@@ -33,7 +35,7 @@ export function Index() {
 
   const handleGenerateSubmit = React.useCallback(
     async (data: GeneratorPrompt) => {
-      if (generating) return
+      if (!isConnected || generating) return
       try {
         setGenerating(true)
         notify(<GeneratingNotification />)
@@ -44,7 +46,7 @@ export function Index() {
         setGenerating(false)
       }
     },
-    [generate, generating, notify]
+    [generate, generating, isConnected, notify]
   )
 
   // const handleRegenerateClick = React.useCallback(async () => {
@@ -95,10 +97,10 @@ export function Index() {
             <Button
               className="md:ml-auto md:w-55 justify-center uppercase"
               type="submit"
-              disabled={!prompt || !!errors.prompt || generating}
+              disabled={!prompt || !!errors.prompt || !isConnected || generating}
             >
               {generating && <IconWaiting className="animate-spin -ml-2 mr-2 w-6 text-white" />}
-              Mint Now
+              {isConnected ? 'Mint Now' : 'No Wallet'}
             </Button>
           </form>
         </section>
