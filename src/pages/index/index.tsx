@@ -98,7 +98,7 @@ export function Index() {
               disabled={!prompt || !!errors.prompt || generating}
             >
               {generating && <IconWaiting className="animate-spin -ml-2 mr-2 w-6 text-white" />}
-              Gen & Mint
+              Mint Now
             </Button>
           </form>
         </section>
