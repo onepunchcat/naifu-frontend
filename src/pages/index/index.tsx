@@ -6,6 +6,7 @@ import { IconHeart, IconRefresh } from '../../components/icon'
 import { Introduction } from '../../components/introduction'
 import { BaseLayout } from '../../components/layout'
 import { Preview } from '../../components/preview'
+import { GenerateImageResult, useGenerator } from '../../hooks'
 import { GeneratorPrompt } from '../../types'
 
 export function Index() {
@@ -15,20 +16,41 @@ export function Index() {
     formState: { errors },
     handleSubmit,
   } = useFormContext<GeneratorPrompt>()
+  const { generate } = useGenerator()
 
   const prompt = watch('prompt')
 
+  const [previously, setPreviously] = React.useState<GenerateImageResult>()
   const [image, setImage] = React.useState<string>()
+  const [generating, setGenerating] = React.useState(false)
 
-  const handleGenerateSubmit = React.useCallback(async (data: GeneratorPrompt) => {
-    console.log(data)
-    setImage('https://i.imgur.com/Gg4Vb5d.png')
-  }, [])
+  const handleGenerateSubmit = React.useCallback(
+    async (data: GeneratorPrompt) => {
+      if (generating) return
+      try {
+        setGenerating(true)
+        const res = await generate(data.prompt)
+        setPreviously(res)
+        setImage(res.image)
+      } finally {
+        setGenerating(false)
+      }
+    },
+    [generate, generating]
+  )
 
   const handleRegenerateClick = React.useCallback(async () => {
-    if (!prompt) return
-    console.log('Regenerate!')
-  }, [prompt])
+    if (!prompt || !previously || generating) return
+    try {
+      setGenerating(true)
+      const res = await generate(prompt, previously)
+      setPreviously(res)
+      setImage(res.image)
+    } finally {
+      setGenerating(false)
+    }
+  }, [generate, generating, previously, prompt])
+
   const handleMintClick = React.useCallback(async () => {
     if (!image) return
     console.log('Mint!')
@@ -49,6 +71,7 @@ export function Index() {
                     title="Regenerate"
                     type="button"
                     circle
+                    disabled={generating}
                     onClick={handleRegenerateClick}
                   >
                     <IconRefresh className="rotate-90 w-6 md:w-10" />
@@ -81,7 +104,7 @@ export function Index() {
             <Button
               className="md:ml-auto md:w-55 justify-center uppercase"
               type="submit"
-              disabled={!prompt || !!errors.prompt}
+              disabled={!prompt || !!errors.prompt || generating}
             >
               Generate
             </Button>
