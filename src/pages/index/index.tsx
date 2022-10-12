@@ -3,7 +3,7 @@ import { useNotifier } from 'react-headless-notifier'
 import { useFormContext } from 'react-hook-form'
 
 import { Button, Textarea } from '../../components/form'
-import { IconHeart, IconRefresh } from '../../components/icon'
+import { IconHeart, IconRefresh, IconWaiting } from '../../components/icon'
 import { Introduction } from '../../components/introduction'
 import { BaseLayout } from '../../components/layout'
 import { InfoNotification } from '../../components/notification'
@@ -115,6 +115,7 @@ export function Index() {
               type="submit"
               disabled={!prompt || !!errors.prompt || generating}
             >
+              {generating && <IconWaiting className="animate-spin -ml-2 mr-2 w-6 text-white" />}
               Generate
             </Button>
           </form>
