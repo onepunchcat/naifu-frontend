@@ -1,13 +1,19 @@
 import React from 'react'
+import { useNotifier } from 'react-headless-notifier'
 import { useFormContext } from 'react-hook-form'
 
 import { Button, Textarea } from '../../components/form'
 import { IconHeart, IconRefresh } from '../../components/icon'
 import { Introduction } from '../../components/introduction'
 import { BaseLayout } from '../../components/layout'
+import { InfoNotification } from '../../components/notification'
 import { Preview } from '../../components/preview'
 import { GenerateImageResult, useGenerator } from '../../hooks'
 import { GeneratorPrompt } from '../../types'
+
+function GeneratingNotification() {
+  return <InfoNotification title="Generating" message="Your request has been submitted" />
+}
 
 export function Index() {
   const {
@@ -17,6 +23,7 @@ export function Index() {
     handleSubmit,
   } = useFormContext<GeneratorPrompt>()
   const { generate } = useGenerator()
+  const { notify } = useNotifier()
 
   const prompt = watch('prompt')
 
@@ -29,6 +36,7 @@ export function Index() {
       if (generating) return
       try {
         setGenerating(true)
+        notify(<GeneratingNotification />)
         const res = await generate(data.prompt)
         setPreviously(res)
         setImage(res.image)
@@ -36,20 +44,21 @@ export function Index() {
         setGenerating(false)
       }
     },
-    [generate, generating]
+    [generate, generating, notify]
   )
 
   const handleRegenerateClick = React.useCallback(async () => {
     if (!prompt || !previously || generating) return
     try {
       setGenerating(true)
+      notify(<GeneratingNotification />)
       const res = await generate(prompt, previously)
       setPreviously(res)
       setImage(res.image)
     } finally {
       setGenerating(false)
     }
-  }, [generate, generating, previously, prompt])
+  }, [generate, generating, notify, previously, prompt])
 
   const handleMintClick = React.useCallback(async () => {
     if (!image) return

@@ -25,6 +25,7 @@ specifiers:
   prettier: ^2.7.1
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-headless-notifier: ^0.1.6
   react-hook-form: ^7.37.0
   react-router-dom: ^6.4.2
   typescript: ^4.6.4
@@ -39,6 +40,7 @@ dependencies:
   ohmyfetch: 0.4.19
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-headless-notifier: 0.1.6_react@18.2.0
   react-hook-form: 7.37.0_react@18.2.0
   react-router-dom: 6.4.2_biqbaboplfbrettd7655fr4n2y
 
@@ -4830,6 +4832,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-headless-notifier/0.1.6_react@18.2.0:
+    resolution: {integrity: sha512-idgAYF2AYW8cZN9cfaPvSUyeUrGyLoOT5RyKj77MQ1S/zCIv73Wajgp3fVxJkA2exBxGiQbo8Ng/p8ZnQUz3wg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-hook-form/7.37.0_react@18.2.0:
