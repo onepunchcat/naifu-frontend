@@ -30,7 +30,7 @@ export function Introduction() {
   return (
     <section id="introduction" className="flex flex-col shrink-0 gap-3 md:gap-5 lg:gap-8 lg:w-80">
       <Link to="/">
-        <LogoUnstableDiffusion className="mb-3 md:mb-5 lg:mb-22" />
+        <LogoUnstableDiffusion className="mb-3 md:mb-5 lg:mb-16" />
       </Link>
       <Content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore

@@ -20,9 +20,13 @@ export function Preview(props: React.PropsWithChildren<PreviewProps>) {
   React.useLayoutEffect(() => {
     function handleResize() {
       const pWidth = divRef.current?.parentElement?.offsetWidth
-      if (!pWidth || pWidth > width) return
+      if (!pWidth) return
       const hRatio = height / width
-      setDimensions({ width: pWidth, height: pWidth * hRatio })
+      if (pWidth > width) {
+        setDimensions({ width: width, height: height })
+      } else {
+        setDimensions({ width: pWidth, height: pWidth * hRatio })
+      }
     }
 
     handleResize()

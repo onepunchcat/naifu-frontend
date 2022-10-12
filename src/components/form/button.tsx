@@ -14,14 +14,14 @@ type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
 }
 
 const sizes: Record<ButtonSizes, string> = {
-  small: 'text-3.5 leading-5 font-normal',
-  medium: 'text-6 leading-7.5 font-normal',
+  small: 'text-4 leading-5 font-normal',
+  medium: 'text-6 leading-6 font-normal',
 }
 
 const calcPadding = (circle: boolean): Record<ButtonSizes, string> => {
   return {
     small: circle ? 'p-4' : 'px-4 py-2',
-    medium: circle ? 'p-4' : 'px-8 py-4',
+    medium: circle ? 'p-4' : 'px-5 py-3',
   }
 }
 
