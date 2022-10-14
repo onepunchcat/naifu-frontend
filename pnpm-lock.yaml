@@ -3,14 +3,16 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.1.2
   '@commitlint/config-conventional': ^17.1.0
+  '@ethersproject/abi': ^5.7.0
+  '@ethersproject/providers': ^5.7.1
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
   '@typescript-eslint/eslint-plugin': ^5.39.0
   '@typescript-eslint/parser': ^5.39.0
   '@unocss/reset': ^0.45.29
   '@vitejs/plugin-react': ^2.1.0
-  '@web3modal/ethereum': 2.0.0-alpha.7
-  '@web3modal/react': 2.0.0-alpha.7
+  '@web3modal/ethereum': ^2.0.0-alpha.7
+  '@web3modal/react': ^2.0.0-alpha.7
   eslint: ^8.25.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.2.1
@@ -33,6 +35,8 @@ specifiers:
   vite: ^3.1.0
 
 dependencies:
+  '@ethersproject/abi': 5.7.0
+  '@ethersproject/providers': 5.7.1
   '@unocss/reset': 0.45.29
   '@web3modal/ethereum': 2.0.0-alpha.7_ethers@5.7.1+react@18.2.0
   '@web3modal/react': 2.0.0-alpha.7_io76qmuijd3ciifsny3dle6jum
