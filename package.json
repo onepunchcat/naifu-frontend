@@ -1,7 +1,7 @@
 {
-  "name": "unstable-diffusion-frontend",
+  "name": "plural-ai-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
