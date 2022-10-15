@@ -1,2 +1,6 @@
 export type { Claimer } from './contracts/Claimer.sol/Claimer'
+export type { NaifuGenesisPasses } from './contracts/NaifuGenesisPasses'
+export type { NaifuToken } from './contracts/NaifuToken'
 export { Claimer__factory } from './factories/contracts/Claimer.sol/Claimer__factory'
+export { NaifuGenesisPasses__factory } from './factories/contracts/NaifuGenesisPasses__factory'
+export { NaifuToken__factory } from './factories/contracts/NaifuToken__factory'
