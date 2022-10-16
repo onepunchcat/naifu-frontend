@@ -1,31 +1,43 @@
-import { useAccount } from '@web3modal/react'
 import React from 'react'
 
-import { useWatchERC20Asset } from '../../hooks'
+import { useClaimerData, useWatchERC20Asset } from '../../hooks'
 import { Button } from '../form'
+import { IconWaiting } from '../icon'
 
-export function Claim() {
-  const { isConnected } = useAccount()
-  const { data, isLoading, watchERC20Asset } = useWatchERC20Asset('0x935Bfe9AfaA2Be26049ea4EDE40A3A2243361F87') // TODO: No hardcode
+type ClaimProps = {
+  claiming: boolean
+  claimDisabled: boolean
+  onClaimClick: React.MouseEventHandler<HTMLButtonElement>
+}
+
+export function Claim(props: React.PropsWithChildren<ClaimProps>) {
+  const [claimerData] = useClaimerData()
+  const { watchERC20Asset } = useWatchERC20Asset(claimerData.token.address)
 
   const handleAddTokenToWallet = React.useCallback(async () => {
     await watchERC20Asset()
   }, [watchERC20Asset])
 
-  if (isConnected && !isLoading)
-    return (
-      <section className="flex flex-col w-full gap-6 md:gap-8">
-        <div className="pt-4 text-white font-semibold">Claim Plural AI Token</div>
+  return (
+    <section className="flex flex-col w-full gap-6 md:gap-8">
+      <div className="pt-4 text-white font-semibold">Claim Token</div>
+      <div className="flex flex-col gap-6">
+        <ul className="pl-3 text-base text-white">{props.children}</ul>
         <div className="grid lg:grid-cols-2 gap-3 md:gap-5 lg:gap-8">
-          <Button className="justify-center uppercase" type="button">
-            Claim {data?.symbol}
+          <Button
+            className="justify-center uppercase"
+            type="button"
+            disabled={props.claimDisabled || props.claiming}
+            onClick={props.onClaimClick}
+          >
+            {props.claiming && <IconWaiting className="animate-spin -ml-2 mr-2 w-6 text-white" />}
+            Claim {claimerData.token.symbol}
           </Button>
           <Button className="justify-center uppercase" type="button" onClick={handleAddTokenToWallet}>
-            Add {data?.symbol} to wallet
+            Add {claimerData.token.symbol} to wallet
           </Button>
         </div>
-      </section>
-    )
-
-  return null
+      </div>
+    </section>
+  )
 }
