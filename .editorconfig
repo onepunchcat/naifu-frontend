@@ -6,12 +6,9 @@ indent_style = spaces
 
 [!*.{diff,patch}]
 charset = utf-8
-end_of_line = lf
+end_of_line = crlf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false
-
-[*.{js,jsx,ts,tsx,css,scss,yaml}]
-end_of_line = crlf
