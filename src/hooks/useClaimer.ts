@@ -45,21 +45,24 @@ export function useClaimer(): UseClaimer {
       const passSymbol = await passContract.symbol()
       const _passBalance = await passContract.balanceOf(account)
       const passBalance = _passBalance.toNumber()
-      updateData({ pass: { address: pass, name: passName, symbol: passSymbol, decimals: 0, balance: passBalance } })
 
       const tokenName = await tokenContract.name()
       const tokenSymbol = await tokenContract.symbol()
       const tokenDecimals = await tokenContract.decimals()
       const _tokenBalance = await tokenContract.balanceOf(account)
       const tokenBalance = _tokenBalance.toNumber()
-      updateData({
-        token: { address: token, name: tokenName, symbol: tokenSymbol, decimals: tokenDecimals, balance: tokenBalance },
-      })
 
       const _tokenPerPass = await claimerContract.w()
       const tokenPerPass = _tokenPerPass.toNumber()
       const claimed = await claimerContract.claimed(account)
-      updateData({ tokenPerPass, claimed, error: undefined })
+
+      updateData({
+        pass: { address: pass, name: passName, symbol: passSymbol, decimals: 0, balance: passBalance },
+        token: { address: token, name: tokenName, symbol: tokenSymbol, decimals: tokenDecimals, balance: tokenBalance },
+        tokenPerPass,
+        claimed,
+        error: undefined,
+      })
     } catch (error) {
       console.error(error)
       if (error instanceof Error) updateData({ error })
