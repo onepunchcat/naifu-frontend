@@ -59,7 +59,7 @@ export function useClaimer(): UseClaimer {
       const _tokenPerPass = await claimerContract.w()
       const tokenPerPass = _tokenPerPass.toNumber()
       const claimed = await claimerContract.claimed(account)
-      updateData({ tokenPerPass, claimed })
+      updateData({ tokenPerPass, claimed, error: undefined })
     } catch (error) {
       console.error(error)
       if (error instanceof Error) updateData({ error })

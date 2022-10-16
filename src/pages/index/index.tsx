@@ -33,14 +33,16 @@ export function Index() {
   const { generate } = useGenerator()
   const { notify } = useNotifier()
   const { mint } = useMinter()
-  const { data: claimerData, claim } = useClaimer()
+  const { data: claimerData, claim, refetch: refetchClaimerData } = useClaimer()
 
   const [image, setImage] = React.useState<string>()
   const [generating, setGenerating] = React.useState(false)
   const [claiming, setClaiming] = React.useState(false)
 
   const claimed = claimerData.claimed
+  const passName = claimerData.pass.name
   const passBalance = claimerData.pass.balance
+  const tokenSymbol = claimerData.token.symbol
   const noNFT = passBalance < 1 && !claimed
   const canClaim = !claimed && passBalance > 0
 
@@ -53,6 +55,7 @@ export function Index() {
         notify(<GeneratingNotification />)
         const res = await generate(data.prompt)
         setImage(res.image)
+        await refetchClaimerData()
       } catch (error) {
         if (isEthersError(error)) notify(<MintFailedNotification message={error.reason || error.message} />)
         else if (error instanceof Error) notify(<MintFailedNotification message={error.message} />)
@@ -60,7 +63,7 @@ export function Index() {
         setGenerating(false)
       }
     },
-    [generate, generating, isConnected, mint, notify]
+    [generate, generating, isConnected, mint, notify, refetchClaimerData]
   )
 
   const handleClaimClick = React.useCallback(async () => {
@@ -68,6 +71,7 @@ export function Index() {
     try {
       setClaiming(true)
       await claim()
+      await refetchClaimerData()
       notify(<SuccessNotification title="Claim success" message="" />)
     } catch (error) {
       if (isEthersError(error)) notify(<ClaimFailedNotification message={error.reason || error.message} />)
@@ -75,7 +79,7 @@ export function Index() {
     } finally {
       setClaiming(false)
     }
-  }, [claim, claiming, isConnected, notify])
+  }, [claim, claiming, isConnected, notify, refetchClaimerData])
 
   return (
     <BaseLayout>
@@ -87,17 +91,31 @@ export function Index() {
           </div>
           <div className="flex flex-col-reverse md:flex-col w-full gap-6 md:gap-8">
             <Mint generating={generating} onMintSubmit={handleGenerateSubmit} />
-            {isConnected && !claimerData.isLoading && (
-              <Claim claiming={claiming} claimDisabled={claimed || noNFT} onClaimClick={handleClaimClick}>
-                {claimed && <li>You are already claimed.</li>}
+            {isConnected && (
+              <Claim
+                claiming={claiming}
+                claimDisabled={claimed || noNFT || claimerData.isLoading}
+                onClaimClick={handleClaimClick}
+              >
                 {noNFT && <li>You have {passBalance} NFT.</li>}
+                {claimed && (
+                  <React.Fragment>
+                    <li>You are already claimed.</li>
+                    <li>
+                      {passName} NFT: {passBalance}
+                    </li>
+                    <li>
+                      {tokenSymbol} Balance: {claimerData.token.balance}
+                    </li>
+                  </React.Fragment>
+                )}
                 {canClaim && (
                   <React.Fragment>
                     <li>
-                      {claimerData.pass.name} NFT: {passBalance}
+                      {passName} NFT: {passBalance}
                     </li>
                     <li>
-                      Estimated {claimerData.token.symbol}: {passBalance * claimerData.tokenPerPass}
+                      Estimated {tokenSymbol}: {passBalance * claimerData.tokenPerPass}
                     </li>
                   </React.Fragment>
                 )}

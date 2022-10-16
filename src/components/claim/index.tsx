@@ -22,7 +22,7 @@ export function Claim(props: React.PropsWithChildren<ClaimProps>) {
     <section className="flex flex-col w-full gap-6 md:gap-8">
       <div className="pt-4 text-white font-semibold">Claim Token</div>
       <div className="flex flex-col gap-6">
-        <ul className="pl-3 text-base text-white">{props.children}</ul>
+        {!claimerData.isLoading && <ul className="pl-3 text-base text-white">{props.children}</ul>}
         <div className="grid lg:grid-cols-2 gap-3 md:gap-5 lg:gap-8">
           <Button
             className="justify-center uppercase"
