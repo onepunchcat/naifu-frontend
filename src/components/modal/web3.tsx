@@ -11,7 +11,7 @@ const config: ConfigOptions = {
   theme: 'dark',
   accentColor: 'default',
   ethereum: {
-    appName: 'Plural AI',
+    appName: 'Naifu',
     chains: [chains.goerli],
     providers: [providers.walletConnectProvider({ projectId })],
   },

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { classNames } from '../../utils'
 import { IconArrowRight } from '../icon'
-import { LogoPluralAI } from '../logo'
+import { LogoNaifu } from '../logo'
 
 type ContentProps = Required<React.PropsWithChildren> & {
   className?: string
@@ -30,7 +30,7 @@ export function Introduction() {
   return (
     <section id="introduction" className="flex flex-col shrink-0 gap-3 md:gap-5 lg:gap-8 lg:w-80">
       <Link to="/">
-        <LogoPluralAI className="mb-3 md:mb-5 lg:mb-8" />
+        <LogoNaifu className="mb-3 md:mb-5 lg:mb-8" />
       </Link>
       <Content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore

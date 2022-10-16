@@ -9,8 +9,9 @@ export default defineConfig({
       fonts: {
         sans: 'Dosis',
         // amatic: { name: 'Amatic SC', weights: [400, 700] },
-        barcode: { name: 'Libre Barcode 39 Text', weights: [400] },
+        // barcode: { name: 'Libre Barcode 39 Text', weights: [400] },
         dosis: { name: 'Dosis', weights: [400, 500, 600, 700], italic: true },
+        megrim: { name: 'Megrim', weights: [400] },
       },
     }),
   ],
