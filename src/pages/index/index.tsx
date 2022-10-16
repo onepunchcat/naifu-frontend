@@ -10,9 +10,22 @@ import { DangerNotification, InfoNotification, SuccessNotification } from '../..
 import { Preview } from '../../components/preview'
 import { useClaimer, useGenerator, useMinter } from '../../hooks'
 import { GeneratorPrompt } from '../../types'
+import { isEthersError } from '../../utils'
+
+type Notification = {
+  message: string
+}
 
 function GeneratingNotification() {
   return <InfoNotification title="Generating" message="Your request has been submitted" />
+}
+
+function MintFailedNotification(props: Notification) {
+  return <DangerNotification title="Mint failed" message={props.message} />
+}
+
+function ClaimFailedNotification(props: Notification) {
+  return <DangerNotification title="Claim failed" message={props.message} />
 }
 
 export function Index() {
@@ -41,7 +54,8 @@ export function Index() {
         const res = await generate(data.prompt)
         setImage(res.image)
       } catch (error) {
-        if (error instanceof Error) notify(<DangerNotification title="Mint failed" message={error.message} />)
+        if (isEthersError(error)) notify(<MintFailedNotification message={error.reason || error.message} />)
+        else if (error instanceof Error) notify(<MintFailedNotification message={error.message} />)
       } finally {
         setGenerating(false)
       }
@@ -56,7 +70,8 @@ export function Index() {
       await claim()
       notify(<SuccessNotification title="Claim success" message="" />)
     } catch (error) {
-      if (error instanceof Error) notify(<DangerNotification title="Claim failed" message={error.message} />)
+      if (isEthersError(error)) notify(<ClaimFailedNotification message={error.reason || error.message} />)
+      else if (error instanceof Error) notify(<ClaimFailedNotification message={error.message} />)
     } finally {
       setClaiming(false)
     }
