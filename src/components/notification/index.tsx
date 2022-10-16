@@ -50,7 +50,7 @@ type ContentContainerProps = {
 
 function ContentContainer(props: ContentContainerProps) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full break-all">
       {props.title && <h4 className={classNames('font-bold text-base', props.titleClass)}>{props.title}</h4>}
       <p className={props.messageClass}>{props.message}</p>
     </div>
