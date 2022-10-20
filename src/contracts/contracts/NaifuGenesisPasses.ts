@@ -19,25 +19,21 @@ import type { OnEvent, PromiseOrValue, TypedEvent, TypedEventFilter, TypedListen
 export interface NaifuGenesisPassesInterface extends utils.Interface {
   functions: {
     'DEFAULT_ADMIN_ROLE()': FunctionFragment
-    'MINTER_ROLE()': FunctionFragment
+    'WITHDRAWER_ROLE()': FunctionFragment
     'approve(address,uint256)': FunctionFragment
     'balanceOf(address)': FunctionFragment
     'baseURI()': FunctionFragment
-    'burn(uint256)': FunctionFragment
     'getApproved(uint256)': FunctionFragment
     'getRoleAdmin(bytes32)': FunctionFragment
-    'grantMinterRole(address)': FunctionFragment
     'grantRole(bytes32,address)': FunctionFragment
     'hasRole(bytes32,address)': FunctionFragment
     'isApprovedForAll(address,address)': FunctionFragment
-    'mint()': FunctionFragment
-    'mint(address)': FunctionFragment
+    'mint(string[])': FunctionFragment
     'mintEnd()': FunctionFragment
     'mintStart()': FunctionFragment
     'name()': FunctionFragment
     'ownerOf(uint256)': FunctionFragment
     'renounceRole(bytes32,address)': FunctionFragment
-    'revokeMinterRole(address)': FunctionFragment
     'revokeRole(bytes32,address)': FunctionFragment
     'safeTransferFrom(address,address,uint256)': FunctionFragment
     'safeTransferFrom(address,address,uint256,bytes)': FunctionFragment
@@ -48,30 +44,27 @@ export interface NaifuGenesisPassesInterface extends utils.Interface {
     'tokenURI(uint256)': FunctionFragment
     'totalSupply()': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
+    'withdraw(address)': FunctionFragment
   }
 
   getFunction(
     nameOrSignatureOrTopic:
       | 'DEFAULT_ADMIN_ROLE'
-      | 'MINTER_ROLE'
+      | 'WITHDRAWER_ROLE'
       | 'approve'
       | 'balanceOf'
       | 'baseURI'
-      | 'burn'
       | 'getApproved'
       | 'getRoleAdmin'
-      | 'grantMinterRole'
       | 'grantRole'
       | 'hasRole'
       | 'isApprovedForAll'
-      | 'mint()'
-      | 'mint(address)'
+      | 'mint'
       | 'mintEnd'
       | 'mintStart'
       | 'name'
       | 'ownerOf'
       | 'renounceRole'
-      | 'revokeMinterRole'
       | 'revokeRole'
       | 'safeTransferFrom(address,address,uint256)'
       | 'safeTransferFrom(address,address,uint256,bytes)'
@@ -82,28 +75,26 @@ export interface NaifuGenesisPassesInterface extends utils.Interface {
       | 'tokenURI'
       | 'totalSupply'
       | 'transferFrom'
+      | 'withdraw'
   ): FunctionFragment
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string
-  encodeFunctionData(functionFragment: 'MINTER_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'WITHDRAWER_ROLE', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'approve',
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string
   encodeFunctionData(functionFragment: 'balanceOf', values: [PromiseOrValue<string>]): string
   encodeFunctionData(functionFragment: 'baseURI', values?: undefined): string
-  encodeFunctionData(functionFragment: 'burn', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'getApproved', values: [PromiseOrValue<BigNumberish>]): string
   encodeFunctionData(functionFragment: 'getRoleAdmin', values: [PromiseOrValue<BytesLike>]): string
-  encodeFunctionData(functionFragment: 'grantMinterRole', values: [PromiseOrValue<string>]): string
   encodeFunctionData(functionFragment: 'grantRole', values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]): string
   encodeFunctionData(functionFragment: 'hasRole', values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]): string
   encodeFunctionData(
     functionFragment: 'isApprovedForAll',
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string
-  encodeFunctionData(functionFragment: 'mint()', values?: undefined): string
-  encodeFunctionData(functionFragment: 'mint(address)', values: [PromiseOrValue<string>]): string
+  encodeFunctionData(functionFragment: 'mint', values: [PromiseOrValue<string>[]]): string
   encodeFunctionData(functionFragment: 'mintEnd', values?: undefined): string
   encodeFunctionData(functionFragment: 'mintStart', values?: undefined): string
   encodeFunctionData(functionFragment: 'name', values?: undefined): string
@@ -112,7 +103,6 @@ export interface NaifuGenesisPassesInterface extends utils.Interface {
     functionFragment: 'renounceRole',
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
   ): string
-  encodeFunctionData(functionFragment: 'revokeMinterRole', values: [PromiseOrValue<string>]): string
   encodeFunctionData(
     functionFragment: 'revokeRole',
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
@@ -138,27 +128,24 @@ export interface NaifuGenesisPassesInterface extends utils.Interface {
     functionFragment: 'transferFrom',
     values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string
+  encodeFunctionData(functionFragment: 'withdraw', values: [PromiseOrValue<string>]): string
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'MINTER_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'WITHDRAWER_ROLE', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'baseURI', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'grantMinterRole', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'mint()', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'mint(address)', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mintEnd', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mintStart', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'revokeMinterRole', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'safeTransferFrom(address,address,uint256)', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'safeTransferFrom(address,address,uint256,bytes)', data: BytesLike): Result
@@ -169,10 +156,12 @@ export interface NaifuGenesisPassesInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
 
   events: {
     'Approval(address,address,uint256)': EventFragment
     'ApprovalForAll(address,address,bool)': EventFragment
+    'ImageRequested(uint256,string)': EventFragment
     'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment
     'RoleGranted(bytes32,address,address)': EventFragment
     'RoleRevoked(bytes32,address,address)': EventFragment
@@ -181,6 +170,7 @@ export interface NaifuGenesisPassesInterface extends utils.Interface {
 
   getEvent(nameOrSignatureOrTopic: 'Approval'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'ApprovalForAll'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ImageRequested'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment
@@ -204,6 +194,14 @@ export interface ApprovalForAllEventObject {
 export type ApprovalForAllEvent = TypedEvent<[string, string, boolean], ApprovalForAllEventObject>
 
 export type ApprovalForAllEventFilter = TypedEventFilter<ApprovalForAllEvent>
+
+export interface ImageRequestedEventObject {
+  tokenId: BigNumber
+  requestId: string
+}
+export type ImageRequestedEvent = TypedEvent<[BigNumber, string], ImageRequestedEventObject>
+
+export type ImageRequestedEventFilter = TypedEventFilter<ImageRequestedEvent>
 
 export interface RoleAdminChangedEventObject {
   role: string
@@ -266,7 +264,7 @@ export interface NaifuGenesisPasses extends BaseContract {
   functions: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>
 
-    MINTER_ROLE(overrides?: CallOverrides): Promise<[string]>
+    WITHDRAWER_ROLE(overrides?: CallOverrides): Promise<[string]>
 
     approve(
       to: PromiseOrValue<string>,
@@ -278,19 +276,9 @@ export interface NaifuGenesisPasses extends BaseContract {
 
     baseURI(overrides?: CallOverrides): Promise<[string]>
 
-    burn(
-      tokenId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
-
     getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string]>
 
     getRoleAdmin(role: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<[string]>
-
-    grantMinterRole(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
 
     grantRole(
       role: PromiseOrValue<BytesLike>,
@@ -310,11 +298,9 @@ export interface NaifuGenesisPasses extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>
 
-    'mint()'(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
-
-    'mint(address)'(
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    mint(
+      requestIds: PromiseOrValue<string>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
     mintEnd(overrides?: CallOverrides): Promise<[number]>
@@ -327,11 +313,6 @@ export interface NaifuGenesisPasses extends BaseContract {
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
-
-    revokeMinterRole(
       account: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
@@ -382,11 +363,16 @@ export interface NaifuGenesisPasses extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
+
+    withdraw(
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
   }
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>
 
-  MINTER_ROLE(overrides?: CallOverrides): Promise<string>
+  WITHDRAWER_ROLE(overrides?: CallOverrides): Promise<string>
 
   approve(
     to: PromiseOrValue<string>,
@@ -398,19 +384,9 @@ export interface NaifuGenesisPasses extends BaseContract {
 
   baseURI(overrides?: CallOverrides): Promise<string>
 
-  burn(
-    tokenId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
-
   getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
 
   getRoleAdmin(role: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<string>
-
-  grantMinterRole(
-    account: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
 
   grantRole(
     role: PromiseOrValue<BytesLike>,
@@ -426,11 +402,9 @@ export interface NaifuGenesisPasses extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>
 
-  'mint()'(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>
-
-  'mint(address)'(
-    to: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  mint(
+    requestIds: PromiseOrValue<string>[],
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
   mintEnd(overrides?: CallOverrides): Promise<number>
@@ -443,11 +417,6 @@ export interface NaifuGenesisPasses extends BaseContract {
 
   renounceRole(
     role: PromiseOrValue<BytesLike>,
-    account: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
-
-  revokeMinterRole(
     account: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
@@ -499,10 +468,15 @@ export interface NaifuGenesisPasses extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
+  withdraw(
+    account: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>
 
-    MINTER_ROLE(overrides?: CallOverrides): Promise<string>
+    WITHDRAWER_ROLE(overrides?: CallOverrides): Promise<string>
 
     approve(to: PromiseOrValue<string>, tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
 
@@ -510,13 +484,9 @@ export interface NaifuGenesisPasses extends BaseContract {
 
     baseURI(overrides?: CallOverrides): Promise<string>
 
-    burn(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>
-
     getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string>
 
     getRoleAdmin(role: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<string>
-
-    grantMinterRole(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>
 
     grantRole(
       role: PromiseOrValue<BytesLike>,
@@ -536,9 +506,7 @@ export interface NaifuGenesisPasses extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>
 
-    'mint()'(overrides?: CallOverrides): Promise<void>
-
-    'mint(address)'(to: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>
+    mint(requestIds: PromiseOrValue<string>[], overrides?: CallOverrides): Promise<void>
 
     mintEnd(overrides?: CallOverrides): Promise<number>
 
@@ -553,8 +521,6 @@ export interface NaifuGenesisPasses extends BaseContract {
       account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>
-
-    revokeMinterRole(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>
 
     revokeRole(
       role: PromiseOrValue<BytesLike>,
@@ -599,6 +565,8 @@ export interface NaifuGenesisPasses extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>
+
+    withdraw(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>
   }
 
   filters: {
@@ -623,6 +591,9 @@ export interface NaifuGenesisPasses extends BaseContract {
       operator?: PromiseOrValue<string> | null,
       approved?: null
     ): ApprovalForAllEventFilter
+
+    'ImageRequested(uint256,string)'(tokenId?: null, requestId?: null): ImageRequestedEventFilter
+    ImageRequested(tokenId?: null, requestId?: null): ImageRequestedEventFilter
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: PromiseOrValue<BytesLike> | null,
@@ -672,7 +643,7 @@ export interface NaifuGenesisPasses extends BaseContract {
   estimateGas: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>
 
-    MINTER_ROLE(overrides?: CallOverrides): Promise<BigNumber>
+    WITHDRAWER_ROLE(overrides?: CallOverrides): Promise<BigNumber>
 
     approve(
       to: PromiseOrValue<string>,
@@ -684,19 +655,9 @@ export interface NaifuGenesisPasses extends BaseContract {
 
     baseURI(overrides?: CallOverrides): Promise<BigNumber>
 
-    burn(
-      tokenId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
-
     getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>
 
     getRoleAdmin(role: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<BigNumber>
-
-    grantMinterRole(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
 
     grantRole(
       role: PromiseOrValue<BytesLike>,
@@ -716,11 +677,9 @@ export interface NaifuGenesisPasses extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    'mint()'(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
-
-    'mint(address)'(
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    mint(
+      requestIds: PromiseOrValue<string>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
     mintEnd(overrides?: CallOverrides): Promise<BigNumber>
@@ -733,11 +692,6 @@ export interface NaifuGenesisPasses extends BaseContract {
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
-
-    revokeMinterRole(
       account: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
@@ -788,12 +742,17 @@ export interface NaifuGenesisPasses extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
+
+    withdraw(
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
   }
 
   populateTransaction: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    MINTER_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    WITHDRAWER_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     approve(
       to: PromiseOrValue<string>,
@@ -805,19 +764,9 @@ export interface NaifuGenesisPasses extends BaseContract {
 
     baseURI(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    burn(
-      tokenId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
-
     getApproved(tokenId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getRoleAdmin(role: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    grantMinterRole(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
 
     grantRole(
       role: PromiseOrValue<BytesLike>,
@@ -837,11 +786,9 @@ export interface NaifuGenesisPasses extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
-    'mint()'(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>
-
-    'mint(address)'(
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    mint(
+      requestIds: PromiseOrValue<string>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
     mintEnd(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -854,11 +801,6 @@ export interface NaifuGenesisPasses extends BaseContract {
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
-
-    revokeMinterRole(
       account: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
@@ -907,6 +849,11 @@ export interface NaifuGenesisPasses extends BaseContract {
       from: PromiseOrValue<string>,
       to: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
+
+    withdraw(
+      account: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
   }
