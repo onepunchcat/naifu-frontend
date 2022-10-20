@@ -5,8 +5,8 @@ import { Button } from '../form'
 import { IconWaiting } from '../icon'
 
 type ClaimProps = {
-  claiming: boolean
-  claimDisabled: boolean
+  claiming?: boolean
+  claimDisabled?: boolean
   onClaimClick: React.MouseEventHandler<HTMLButtonElement>
 }
 

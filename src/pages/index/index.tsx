@@ -8,8 +8,8 @@ import { BaseLayout } from '../../components/layout'
 import { Mint } from '../../components/mint'
 import { DangerNotification, InfoNotification, SuccessNotification } from '../../components/notification'
 import { Preview } from '../../components/preview'
-import { useClaimer, useGenerator, useMinter } from '../../hooks'
-import { GeneratorPrompt } from '../../types'
+import { useClaimer, useGenerater, useMinter } from '../../hooks'
+import { GeneraterPrompt } from '../../types'
 import { isEthersError } from '../../utils'
 
 type Notification = {
@@ -30,7 +30,7 @@ function ClaimFailedNotification(props: Notification) {
 
 export function Index() {
   const { isConnected } = useAccount()
-  const { generate } = useGenerator()
+  const { generate } = useGenerater()
   const { notify } = useNotifier()
   const { mint } = useMinter()
   const { data: claimerData, claim, refetch: refetchClaimerData } = useClaimer()
@@ -47,7 +47,7 @@ export function Index() {
   const canClaim = !claimed && passBalance > 0
 
   const handleGenerateSubmit = React.useCallback(
-    async (data: GeneratorPrompt) => {
+    async (data: GeneraterPrompt) => {
       if (!isConnected || generating) return
       try {
         setGenerating(true)

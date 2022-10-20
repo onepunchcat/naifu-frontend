@@ -1,2 +1,2 @@
 export * from './claimer'
-export * from './generator'
+export * from './generater'

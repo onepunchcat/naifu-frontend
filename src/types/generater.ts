@@ -1,4 +1,4 @@
-export type GeneratorPrompt = {
+export type GeneraterPrompt = {
   prompt: string
 }
 
@@ -12,7 +12,7 @@ export enum Samplers {
   DDim = 'ddim',
 }
 
-export type GeneratorParameters = {
+export type GeneraterParameters = {
   prompt: string
   width: number
   height: number

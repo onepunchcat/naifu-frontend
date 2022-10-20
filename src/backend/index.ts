@@ -1,22 +1,21 @@
 import { $fetch } from 'ohmyfetch'
 
-import { GeneratorParameters } from '../types'
+import { GeneraterParameters } from '../types'
 import { getViteEnv } from '../utils'
 
-function getGeneratorAPIBaseUrl(path: string): string {
+function getGeneraterAPIBaseUrl(path: string): string {
   const baseUrl = getViteEnv('VITE_GEN_BASE_URL')
-
   return new URL(path, baseUrl).href
 }
 
-const generatorFetch = $fetch.create({ baseURL: getGeneratorAPIBaseUrl('/') })
+const generaterFetch = $fetch.create({ baseURL: getGeneraterAPIBaseUrl('/') })
 
 type GenerateImage = {
   output: string[]
 }
 
-export async function generateImage(param: GeneratorParameters): Promise<string> {
-  const res = await generatorFetch<GenerateImage>('/generate', {
+export async function generateImage(param: GeneraterParameters): Promise<string> {
+  const res = await generaterFetch<GenerateImage>('/generate', {
     method: 'POST',
     mode: 'cors',
     referrerPolicy: 'no-referrer',

@@ -1,5 +1,5 @@
 import { generateImage } from '../backend'
-import { GeneratorParameters, OrientType, Samplers } from '../types'
+import { GeneraterParameters, OrientType, Samplers } from '../types'
 
 type OrientInfo = {
   width: number
@@ -22,12 +22,12 @@ export type GenerateImageResult = {
   rawBase64: string
 }
 
-export function useGenerator() {
+export function useGenerater() {
   async function generate(prompt: string, previously?: GenerateImageResult): Promise<GenerateImageResult> {
     const undesired = [lowQuality, badAnatomy]
     const seed = Math.round(new Date().getTime() / 1000)
     const orient = orientMap.portrait
-    const parameters: Partial<GeneratorParameters> = {
+    const parameters: Partial<GeneraterParameters> = {
       width: orient.width,
       height: orient.height,
       sampler: Samplers.KEulerAncestral,
@@ -37,7 +37,7 @@ export function useGenerator() {
       ucPreset: 0,
     }
 
-    let finalParameters: GeneratorParameters | null = null
+    let finalParameters: GeneraterParameters | null = null
 
     if (previously) {
       finalParameters = Object.assign(parameters, {
@@ -45,13 +45,13 @@ export function useGenerator() {
         prompt,
         scale: 11,
         steps: 50,
-      }) as GeneratorParameters
+      }) as GeneraterParameters
     } else {
       finalParameters = Object.assign(parameters, {
         prompt,
         scale: 12,
         steps: 28,
-      }) as GeneratorParameters
+      }) as GeneraterParameters
     }
 
     const rawBase64 = await generateImage(finalParameters)

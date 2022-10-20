@@ -1,13 +1,13 @@
 import { useAccount } from '@web3modal/react'
 import { SubmitHandler, useFormContext } from 'react-hook-form'
 
-import { GeneratorPrompt } from '../../types'
+import { GeneraterPrompt } from '../../types'
 import { Button, Textarea } from '../form'
 import { IconWaiting } from '../icon'
 
 type MintProps = {
   generating?: boolean
-  onMintSubmit: SubmitHandler<GeneratorPrompt>
+  onMintSubmit: SubmitHandler<GeneraterPrompt>
 }
 
 export function Mint(props: MintProps) {
@@ -16,7 +16,7 @@ export function Mint(props: MintProps) {
     register,
     formState: { errors },
     handleSubmit,
-  } = useFormContext<GeneratorPrompt>()
+  } = useFormContext<GeneraterPrompt>()
   const { isConnected } = useAccount()
 
   const prompt = watch('prompt')
