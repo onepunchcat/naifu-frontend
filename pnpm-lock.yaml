@@ -6,6 +6,7 @@ specifiers:
   '@ethersproject/abi': ^5.7.0
   '@ethersproject/logger': ^5.7.0
   '@ethersproject/providers': ^5.7.1
+  '@types/luxon': ^3.0.2
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
   '@typescript-eslint/eslint-plugin': ^5.39.0
@@ -24,6 +25,7 @@ specifiers:
   ethers: ^5.7.1
   husky: ^8.0.1
   lint-staged: ^13.0.3
+  luxon: ^3.0.4
   ohmyfetch: ^0.4.19
   prettier: ^2.7.1
   react: ^18.2.0
@@ -43,6 +45,7 @@ dependencies:
   '@web3modal/ethereum': 2.0.0-alpha.7_ethers@5.7.1+react@18.2.0
   '@web3modal/react': 2.0.0-alpha.7_io76qmuijd3ciifsny3dle6jum
   ethers: 5.7.1
+  luxon: 3.0.4
   ohmyfetch: 0.4.19
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -53,6 +56,7 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 17.1.2
   '@commitlint/config-conventional': 17.1.0
+  '@types/luxon': 3.0.2
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
   '@typescript-eslint/eslint-plugin': 5.39.0_cfd7h3iktziq6hcwahu2qxhjhy
@@ -1226,6 +1230,10 @@ packages:
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
+    dev: true
+
+  /@types/luxon/3.0.2:
+    resolution: {integrity: sha512-HM2OVWckUMmXbWYZufmWT2XMURGDZ6XbyNyQ+Lx+gCFGFqbZaIjsz7b+AGeGP/AuVYHBiuGY+wXfweP1RremnA==}
     dev: true
 
   /@types/minimist/1.2.2:
@@ -4275,6 +4283,11 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /luxon/3.0.4:
+    resolution: {integrity: sha512-aV48rGUwP/Vydn8HT+5cdr26YYQiUZ42NM6ToMoaGKwYfWbfLeRkEu1wXWMHBZT6+KyLfcbbtVcoQFCbbPjKlw==}
+    engines: {node: '>=12'}
+    dev: false
 
   /magic-string/0.26.7:
     resolution: {integrity: sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==}
