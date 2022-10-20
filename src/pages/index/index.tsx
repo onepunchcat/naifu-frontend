@@ -32,18 +32,11 @@ export function Index() {
   const { isConnected } = useAccount()
   const { notify } = useNotifier()
   const { data: minterData, requestIds, mint } = useMinter()
-  const { data: claimerData, claim, refetch: refetchClaimerData } = useClaimer()
+  const { claim, refetch: refetchClaimerData } = useClaimer()
 
   const [image, setImage] = React.useState<string>()
   const [minting, setMinting] = React.useState(false)
   const [claiming, setClaiming] = React.useState(false)
-
-  const claimed = claimerData.claimed
-  const passName = claimerData.pass.name
-  const passBalance = claimerData.pass.balance
-  const tokenSymbol = claimerData.token.symbol
-  const noNFT = passBalance < 1 && !claimed
-  const canClaim = !claimed && passBalance > 0
 
   const handleGenerateSubmit = React.useCallback(
     async (data: GeneraterPrompt) => {
@@ -93,36 +86,7 @@ export function Index() {
               mintDisabled={!minterData.started || minterData.ended}
               onMintSubmit={handleGenerateSubmit}
             />
-            {isConnected && (
-              <Claim
-                claiming={claiming}
-                claimDisabled={claimed || noNFT || claimerData.isLoading}
-                onClaimClick={handleClaimClick}
-              >
-                {noNFT && <li>You have {passBalance} NFT.</li>}
-                {claimed && (
-                  <React.Fragment>
-                    <li>You are already claimed.</li>
-                    <li>
-                      {passName} NFT: {passBalance}
-                    </li>
-                    <li>
-                      {tokenSymbol} Balance: {claimerData.token.balance}
-                    </li>
-                  </React.Fragment>
-                )}
-                {canClaim && (
-                  <React.Fragment>
-                    <li>
-                      {passName} NFT: {passBalance}
-                    </li>
-                    <li>
-                      Estimated {tokenSymbol}: {passBalance * claimerData.tokenPerPass}
-                    </li>
-                  </React.Fragment>
-                )}
-              </Claim>
-            )}
+            {isConnected && <Claim claiming={claiming} onClaimClick={handleClaimClick} />}
           </div>
         </section>
       </div>

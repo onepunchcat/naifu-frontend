@@ -30,7 +30,7 @@ export function useClaimer(): UseClaimer {
 
   const fetchContractInfo = React.useCallback(async () => {
     if (!claimerContract) return updateData({ error: new Error('No claimer') })
-
+    console.debug('Fetch claimer contract info', state.current.pass)
     try {
       updateData({ isLoading: true })
 
@@ -39,7 +39,7 @@ export function useClaimer(): UseClaimer {
       state.current.pass = pass
       state.current.token = token
 
-      if (!account || !passContract || !tokenContract) return
+      if (!account || !passContract || !tokenContract) return updateData({ error: new Error('Unable to fetch') })
 
       const passName = await passContract.name()
       const passSymbol = await passContract.symbol()
