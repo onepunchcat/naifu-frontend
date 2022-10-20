@@ -8,7 +8,7 @@ import { BaseLayout } from '../../components/layout'
 import { Mint } from '../../components/mint'
 import { DangerNotification, InfoNotification, SuccessNotification } from '../../components/notification'
 import { Preview } from '../../components/preview'
-import { useClaimer, useGenerater, useMinter } from '../../hooks'
+import { useClaimer, useMinter } from '../../hooks'
 import { GeneraterPrompt } from '../../types'
 import { isEthersError } from '../../utils'
 
@@ -30,13 +30,12 @@ function ClaimFailedNotification(props: Notification) {
 
 export function Index() {
   const { isConnected } = useAccount()
-  const { generate } = useGenerater()
   const { notify } = useNotifier()
-  const { mint } = useMinter()
+  const { data: minterData, requestIds, mint } = useMinter()
   const { data: claimerData, claim, refetch: refetchClaimerData } = useClaimer()
 
   const [image, setImage] = React.useState<string>()
-  const [generating, setGenerating] = React.useState(false)
+  const [minting, setMinting] = React.useState(false)
   const [claiming, setClaiming] = React.useState(false)
 
   const claimed = claimerData.claimed
@@ -48,22 +47,21 @@ export function Index() {
 
   const handleGenerateSubmit = React.useCallback(
     async (data: GeneraterPrompt) => {
-      if (!isConnected || generating) return
+      if (!isConnected || minting) return
       try {
-        setGenerating(true)
-        await mint()
+        setMinting(true)
+        const reqIds = await requestIds(data.prompt)
+        await mint(reqIds)
         notify(<GeneratingNotification />)
-        const res = await generate(data.prompt)
-        setImage(res.image)
         await refetchClaimerData()
       } catch (error) {
         if (isEthersError(error)) notify(<MintFailedNotification message={error.reason || error.message} />)
         else if (error instanceof Error) notify(<MintFailedNotification message={error.message} />)
       } finally {
-        setGenerating(false)
+        setMinting(false)
       }
     },
-    [generate, generating, isConnected, mint, notify, refetchClaimerData]
+    [isConnected, mint, minting, notify, refetchClaimerData, requestIds]
   )
 
   const handleClaimClick = React.useCallback(async () => {
@@ -90,7 +88,11 @@ export function Index() {
             <Preview src={image} />
           </div>
           <div className="flex flex-col-reverse md:flex-col w-full gap-6 md:gap-8">
-            <Mint generating={generating} onMintSubmit={handleGenerateSubmit} />
+            <Mint
+              minting={minting}
+              mintDisabled={!minterData.started || minterData.ended}
+              onMintSubmit={handleGenerateSubmit}
+            />
             {isConnected && (
               <Claim
                 claiming={claiming}

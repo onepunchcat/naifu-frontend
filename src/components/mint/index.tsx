@@ -6,7 +6,8 @@ import { Button, Textarea } from '../form'
 import { IconWaiting } from '../icon'
 
 type MintProps = {
-  generating?: boolean
+  minting?: boolean
+  mintDisabled?: boolean
   onMintSubmit: SubmitHandler<GeneraterPrompt>
 }
 
@@ -36,9 +37,9 @@ export function Mint(props: MintProps) {
       <Button
         className="md:ml-auto md:w-55 justify-center uppercase"
         type="submit"
-        disabled={!prompt || !!errors.prompt || !isConnected || props.generating}
+        disabled={!prompt || !!errors.prompt || !isConnected || props.mintDisabled || props.minting}
       >
-        {props.generating && <IconWaiting className="animate-spin -ml-2 mr-2 w-6 text-white" />}
+        {props.minting && <IconWaiting className="animate-spin -ml-2 mr-2 w-6 text-white" />}
         {isConnected ? 'Mint Now' : 'No Wallet'}
       </Button>
     </form>

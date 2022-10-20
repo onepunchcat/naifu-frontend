@@ -1,5 +1,4 @@
-import { generateImage } from '../backend'
-import { GeneraterParameters, OrientType, Samplers } from '../types'
+import { GeneraterImageResult, GeneraterParameters, OrientType, Samplers } from '../types'
 
 type OrientInfo = {
   width: number
@@ -17,13 +16,8 @@ const lowQuality =
 
 const badAnatomy = 'bad anatomy, bad hands, error, missing fingers, extra digit, fewer digits'
 
-export type GenerateImageResult = {
-  image: string
-  rawBase64: string
-}
-
 export function useGenerater() {
-  async function generate(prompt: string, previously?: GenerateImageResult): Promise<GenerateImageResult> {
+  async function generateParameters(prompt: string, previously?: GeneraterImageResult): Promise<GeneraterParameters> {
     const undesired = [lowQuality, badAnatomy]
     const seed = Math.round(new Date().getTime() / 1000)
     const orient = orientMap.portrait
@@ -54,9 +48,8 @@ export function useGenerater() {
       }) as GeneraterParameters
     }
 
-    const rawBase64 = await generateImage(finalParameters)
-    return { image: `data:image/png;base64,${rawBase64}`, rawBase64 }
+    return finalParameters
   }
 
-  return { generate }
+  return { generateParameters }
 }

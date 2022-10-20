@@ -24,3 +24,8 @@ export type GeneraterParameters = {
   ucPreset: number
   uc: string
 }
+
+export type GeneraterImageResult = {
+  image: string
+  rawBase64: string
+}
