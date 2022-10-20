@@ -3,24 +3,28 @@ import { parseEther } from 'ethers/lib/utils'
 import React from 'react'
 
 import { requestMintIds } from '../backend'
-import { CLAIMER_ADDRESS } from '../constants'
+import { CLAIMER_ADDRESS, MINTER_ADDRESS } from '../constants'
 import { isHistorical } from '../utils'
 import { useClaimerContract, useNaifuGenesisPassesContract } from './useContract'
 import { useGenerater } from './useGenerater'
 
 type MinterDataTypes = 'pass'
 
-type MinterState = Record<MinterDataTypes, string> & {
-  mintStart: number
-  mintEnd: number
-}
+type MinterState = Record<MinterDataTypes, string>
 
 type MinterData = {
   started: boolean
   ended: boolean
 }
 
-const initialState: MinterState = { pass: '', mintStart: 0, mintEnd: 0 }
+const initialState: MinterState = { pass: '' }
+
+const initialData: MinterData = { started: false, ended: false }
+
+const dataReducer = (state: MinterData, action: Partial<MinterData>) => {
+  console.debug('Update minter data', action)
+  return { ...state, ...action }
+}
 
 type UseMinter = {
   data: MinterData
@@ -30,6 +34,7 @@ type UseMinter = {
 
 export function useMinter(): UseMinter {
   const state = React.useRef<MinterState>(initialState)
+  const [data, updateData] = React.useReducer(dataReducer, initialData)
   const claimerContract = useClaimerContract(CLAIMER_ADDRESS)
   const passContract = useNaifuGenesisPassesContract(state.current.pass)
   const { generateParameters } = useGenerater()
@@ -37,23 +42,19 @@ export function useMinter(): UseMinter {
   const mintBasePrice = parseEther('0.01')
 
   const fetchContractInfo = React.useCallback(async () => {
-    if (!claimerContract) return
-    const pass = await claimerContract.pass()
-    state.current = { ...state.current, pass }
-
+    if (CLAIMER_ADDRESS) {
+      if (!claimerContract) return
+      const pass = await claimerContract.pass()
+      state.current.pass = pass
+    } else state.current.pass = MINTER_ADDRESS
+    console.debug('Fetch minter contract info', state.current.pass)
     if (!passContract) return
     const mintStart = await passContract.mintStart()
     const mintEnd = await passContract.mintEnd()
-    state.current = { ...state.current, mintStart, mintEnd }
-  }, [claimerContract, passContract])
-
-  const data = React.useMemo(() => {
-    const { mintStart, mintEnd } = state.current
     const started = isHistorical(mintStart)
     const ended = isHistorical(mintEnd)
-    console.debug('Minter started', started, 'ended', ended, 'mintStart', mintStart, 'mintEnd', mintEnd)
-    return { started, ended }
-  }, [])
+    updateData({ started, ended })
+  }, [claimerContract, passContract])
 
   const requestIds = React.useCallback<UseMinter['requestIds']>(
     async (prompt) => {
